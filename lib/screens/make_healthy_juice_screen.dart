@@ -8,54 +8,48 @@ class MakeHealthyJuiceScreen extends StatefulWidget {
 }
 
 class _MakeHealthyJuiceScreenState extends State<MakeHealthyJuiceScreen> {
-  List<String> ingredients = [];
+  String juiceLayer = 'assets/items_and_objects/juice_empty.png';
 
-  void _addFruit(String fruit) {
-    if (ingredients.length < 3) {
-      setState(() => ingredients.add(fruit));
-    }
+  void _makeJuice(String type) {
+    setState(() {
+      juiceLayer = 'assets/juice_fruits_layers/juice_${type}_layer4.png';
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        decoration: const BoxDecoration(
-          image: DecorationImage(
-            image: AssetImage('assets/backgrounds/make_juice_background.png'),
-            fit: BoxFit.cover,
-          ),
-        ),
-        child: Column(
-          children: [
-            const SizedBox(height: 60),
-            Row(
+      body: Stack(
+        children: [
+          Image.asset('assets/backgrounds/make_juice_background.png', fit: BoxFit.cover, width: double.infinity, height: double.infinity),
+          Center(
+            child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                _fruitItem('assets/fruits/apple.png', 'Apple'),
-                _fruitItem('assets/fruits/orange.png', 'Orange'),
-                _fruitItem('assets/fruits/strawberry.png', 'Strawberry'),
+                Image.asset(juiceLayer, height: 200),
+                const SizedBox(height: 40),
+                Wrap(
+                  spacing: 15,
+                  children: [
+                    _fruitBtn('orange'),
+                    _fruitBtn('apple'),
+                    _fruitBtn('banana'),
+                    _fruitBtn('strawberry'),
+                  ],
+                )
               ],
             ),
-            const Spacer(),
-            Image.asset('assets/items_and_objects/blender.png', height: 250),
-            const SizedBox(height: 20),
-            ElevatedButton(
-              onPressed: ingredients.isNotEmpty ? () => Navigator.pop(context) : null,
-              child: const Text('Blend!'),
-            ),
-            const SizedBox(height: 40),
-          ],
-        ),
+          ),
+          Positioned(top: 40, left: 20, child: IconButton(icon: const Icon(Icons.arrow_back_ios), onPressed: () => Navigator.pop(context))),
+        ],
       ),
     );
   }
 
-  Widget _fruitItem(String asset, String name) => GestureDetector(
-    onTap: () => _addFruit(name),
-    child: Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Image.asset(asset, width: 80),
-    ),
-  );
+  Widget _fruitBtn(String name) {
+    return GestureDetector(
+      onTap: () => _makeJuice(name),
+      child: Image.asset('assets/fruits/$name.png', width: 60),
+    );
+  }
 }
