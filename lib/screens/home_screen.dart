@@ -15,12 +15,8 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     super.initState();
-    _playBGM();
-  }
-
-  void _playBGM() async {
-    await _player.setReleaseMode(ReleaseMode.loop);
-    await _player.play(AssetSource('audio/bensound_cute.mp3'));
+    _player.play(AssetSource('audio/bensound_cute.mp3'));
+    _player.setReleaseMode(ReleaseMode.loop);
   }
 
   @override
@@ -52,7 +48,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     MaterialPageRoute(builder: (context) => const ActivitySelectorScreen()),
                   );
                 },
-                child: Image.asset('assets/toddler_care_buttons/playtime_button.png', width: 200),
+                child: Image.asset('assets/logos_and_buttons/play_button.png', width: 150),
               ),
             ],
           ),
