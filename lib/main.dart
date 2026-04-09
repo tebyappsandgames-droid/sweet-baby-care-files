@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
-import 'screens/home_screen.dart';
+import 'package:flutter/services.dart';
+import 'screens/intro_screen.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
   runApp(const MyApp());
 }
 
@@ -14,10 +17,10 @@ class MyApp extends StatelessWidget {
       title: 'Sweet Baby Care',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        fontFamily: 'ChalkboardSE',
+        fontFamily: 'Chalkboard',
         useMaterial3: true,
       ),
-      home: const HomeScreen(),
+      home: const IntroScreen(),
     );
   }
 }
