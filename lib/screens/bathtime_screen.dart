@@ -1,63 +1,34 @@
 import 'package:flutter/material.dart';
-import 'package:animated_widgets/animated_widgets.dart';
 
-class BathtimeScreen extends StatefulWidget {
+class BathtimeScreen extends StatelessWidget {
   const BathtimeScreen({super.key});
-
-  @override
-  State<BathtimeScreen> createState() => _BathtimeScreenState();
-}
-
-class _BathtimeScreenState extends State<BathtimeScreen> {
-  double cleanliness = 0.0;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        decoration: const BoxDecoration(
-          image: DecorationImage(
-            image: AssetImage('assets/backgrounds/bathroom_background.png'),
-            fit: BoxFit.cover,
+      body: Stack(
+        children: [
+          Image.asset('assets/backgrounds/bathroom_background.png', fit: BoxFit.cover, width: double.infinity, height: double.infinity),
+          Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Image.asset('assets/characters/hope_ferrer.png', height: 250),
+                const SizedBox(height: 20),
+                Wrap(
+                  spacing: 20,
+                  children: [
+                    Image.asset('assets/items_and_objects/bar_of_soap.png', width: 60),
+                    Image.asset('assets/items_and_objects/baby_shampoo.png', width: 60),
+                    Image.asset('assets/items_and_objects/sponge.png', width: 60),
+                  ],
+                )
+              ],
+            ),
           ),
-        ),
-        child: Stack(
-          children: [
-            Positioned(
-              left: 20, top: 40,
-              child: IconButton(icon: const Icon(Icons.arrow_back, size: 40), onPressed: () => Navigator.pop(context)),
-            ),
-            Center(
-              child: ShakeAnimatedWidget(
-                enabled: cleanliness < 1.0,
-                duration: const Duration(milliseconds: 1500),
-                shakeAngle: Rotation.deg(z: 2),
-                curve: Curves.linear,
-                child: Image.asset('assets/characters/hope_ferrer.png', height: 400),
-              ),
-            ),
-            Positioned(
-              bottom: 20,
-              left: 0, right: 0,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  _toolIcon('assets/items_and_objects/bar_of_soap.png'),
-                  _toolIcon('assets/items_and_objects/sponge.png'),
-                  _toolIcon('assets/items_and_objects/rubber_duck.png'),
-                ],
-              ),
-            ),
-          ],
-        ),
+          Positioned(top: 40, left: 20, child: IconButton(icon: const Icon(Icons.arrow_back_ios), onPressed: () => Navigator.pop(context))),
+        ],
       ),
-    );
-  }
-
-  Widget _toolIcon(String asset) {
-    return Draggable(
-      feedback: Image.asset(asset, width: 80),
-      child: Image.asset(asset, width: 80),
     );
   }
 }
